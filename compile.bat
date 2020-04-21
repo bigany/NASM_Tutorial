@@ -1,8 +1,9 @@
 @echo off
 set ProjectName=%1
+set objName=%2
 if "%ProjectName%"=="" (set ProjectName=hello_world.c)
 
-set AdditionalLinkerLib=%2
+set AdditionalLinkerLib=%3
 
 set Compiler=msvc
 if "%Compiler%"=="msvc" (
@@ -18,7 +19,7 @@ if "%Compiler%"=="msvc" (
     )
 )
 REM /FA --- get list /fp:fast
-set CompileCommand=cl "%ProjectName%" /Ox /FA /fp:fast /arch:AVX2 /link /subsystem:console /entry:main /incremental:no /machine:x64  /defaultlib:Kernel32.lib /defaultlib:User32.lib /defaultlib:ucrt.lib /defaultlib:msvcrt.lib /opt:ref %AdditionalLinkerLib%
+set CompileCommand=cl "%ProjectName%" "%objName%" /Ox /FA /fp:fast /arch:AVX2 /link /subsystem:console /entry:main /incremental:no /machine:x64  /defaultlib:Kernel32.lib /defaultlib:User32.lib /defaultlib:ucrt.lib /defaultlib:msvcrt.lib /opt:ref %AdditionalLinkerLib%
 
 echo.
 echo Compiling (command follows below)...
